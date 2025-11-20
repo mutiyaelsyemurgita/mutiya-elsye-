@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Primbon Jodoh Weton Jawa</title>
+    <!-- Memuat Tailwind CSS untuk styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Menggunakan font Inter -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <div id="app" class="bg-white p-6 md:p-10 rounded-xl shadow-2xl w-full max-w-2xl border-t-4 border-red-600">
+        <h1 class="text-3xl font-extrabold text-red-700 mb-2 text-center">
+            Primbon Jodoh Weton Jawa
+        </h1>
+        <p class="text-center text-gray-600 mb-8">
+            Hitung nilai Neptu Anda dan pasangan untuk mengetahui ramalan kecocokan pernikahan.
+        </p>
+
+        <form id="wetonForm" class="space-y-6">
+
+            <!-- Bagian Data Pengguna 1 -->
+            <div class="border p-4 rounded-lg bg-red-50">
+                <h2 class="text-xl font-semibold text-red-600 mb-3">Data Pasangan 1 (Anda)</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="weton1" class="block text-sm font-medium text-gray-700 mb-1">Hari Pasaran (Weton)</label>
+                        <select id="weton1" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-red-500 focus:border-red-500 shadow-sm transition duration-150 ease-in-out" required>
+                            <option value="">Pilih Hari Pasaran</option>
+                            <option value="Minggu Kliwon">Minggu Kliwon (13)</option>
+                            <option value="Minggu Legi">Minggu Legi (10)</option>
+                            <option value="Minggu Pahing">Minggu Pahing (14)</option>
+                            <option value="Minggu Pon">Minggu Pon (12)</option>
+                            <option value="Minggu Wage">Minggu Wage (9)</option>
+                            <!-- Hari Pasaran Senin -->
+                            <option value="Senin Kliwon">Senin Kliwon (12)</option>
+                            <option value="Senin Legi">Senin Legi (9)</option>
+                            <option value="Senin Pahing">Senin Pahing (13)</option>
+                            <option value="Senin Pon">Senin Pon (11)</option>
+                            <option value="Senin Wage">Senin Wage (8)</option>
+                            <!-- Hari Pasaran Selasa -->
+                            <option value="Selasa Kliwon">Selasa Kliwon (11)</option>
+                            <option value="Selasa Legi">Selasa Legi (8)</option>
+                            <option value="Selasa Pahing">Selasa Pahing (12)</option>
+                            <option value="Selasa Pon">Selasa Pon (10)</option>
+                            <option value="Selasa Wage">Selasa Wage (7)</option>
+                            <!-- Hari Pasaran Rabu -->
+                            <option value="Rabu Kliwon">Rabu Kliwon (15)</option>
+                            <option value="Rabu Legi">Rabu Legi (12)</option>
+                            <option value="Rabu Pahing">Rabu Pahing (16)</option>
+                            <option value="Rabu Pon">Rabu Pon (14)</option>
+                            <option value="Rabu Wage">Rabu Wage (11)</option>
+                            <!-- Hari Pasaran Kamis -->
+                            <option value="Kamis Kliwon">Kamis Kliwon (16)</option>
+                            <option value="Kamis Legi">Kamis Legi (13)</option>
+                            <option value="Kamis Pahing">Kamis Pahing (17)</option>
+                            <option value="Kamis Pon">Kamis Pon (15)</option>
+                            <option value="Kamis Wage">Kamis Wage (12)</option>
+                            <!-- Hari Pasaran Jumat -->
+                            <option value="Jumat Kliwon">Jumat Kliwon (14)</option>
+                            <option value="Jumat Legi">Jumat Legi (11)</option>
+                            <option value="Jumat Pahing">Jumat Pahing (15)</option>
+                            <option value="Jumat Pon">Jumat Pon (13)</option>
+                            <option value="Jumat Wage">Jumat Wage (10)</option>
+                            <!-- Hari Pasaran Sabtu -->
+                            <option value="Sabtu Kliwon">Sabtu Kliwon (17)</option>
+                            <option value="Sabtu Legi">Sabtu Legi (14)</option>
+                            <option value="Sabtu Pahing">Sabtu Pahing (18)</option>
+                            <option value="Sabtu Pon">Sabtu Pon (16)</option>
+                            <option value="Sabtu Wage">Sabtu Wage (13)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="neptu1" class="block text-sm font-medium text-gray-700 mb-1">Nilai Neptu (Otomatis)</label>
+                        <input type="number" id="neptu1" readonly class="w-full p-2 border border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed shadow-sm">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bagian Data Pengguna 2 -->
+            <div class="border p-4 rounded-lg bg-blue-50">
+                <h2 class="text-xl font-semibold text-blue-600 mb-3">Data Pasangan 2 (Jodoh)</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="weton2" class="block text-sm font-medium text-gray-700 mb-1">Hari Pasaran (Weton)</label>
+                        <select id="weton2" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 shadow-sm transition duration-150 ease-in-out" required>
+                            <option value="">Pilih Hari Pasaran</option>
+                            <!-- Duplikasi opsi weton dari atas untuk Pasangan 2 -->
+                            <option value="Minggu Kliwon">Minggu Kliwon (13)</option>
+                            <option value="Minggu Legi">Minggu Legi (10)</option>
+                            <option value="Minggu Pahing">Minggu Pahing (14)</option>
+                            <option value="Minggu Pon">Minggu Pon (12)</option>
+                            <option value="Minggu Wage">Minggu Wage (9)</option>
+                            <!-- Hari Pasaran Senin -->
+                            <option value="Senin Kliwon">Senin Kliwon (12)</option>
+                            <option value="Senin Legi">Senin Legi (9)</option>
+                            <option value="Senin Pahing">Senin Pahing (13)</option>
+                            <option value="Senin Pon">Senin Pon (11)</option>
+                            <option value="Senin Wage">Senin Wage (8)</option>
+                            <!-- Hari Pasaran Selasa -->
+                            <option value="Selasa Kliwon">Selasa Kliwon (11)</option>
+                            <option value="Selasa Legi">Selasa Legi (8)</option>
+                            <option value="Selasa Pahing">Selasa Pahing (12)</option>
+                            <option value="Selasa Pon">Selasa Pon (10)</option>
+                            <option value="Selasa Wage">Selasa Wage (7)</option>
+                            <!-- Hari Pasaran Rabu -->
+                            <option value="Rabu Kliwon">Rabu Kliwon (15)</option>
+                            <option value="Rabu Legi">Rabu Legi (12)</option>
+                            <option value="Rabu Pahing">Rabu Pahing (16)</option>
+                            <option value="Rabu Pon">Rabu Pon (14)</option>
+                            <option value="Rabu Wage">Rabu Wage (11)</option>
+                            <!-- Hari Pasaran Kamis -->
+                            <option value="Kamis Kliwon">Kamis Kliwon (16)</option>
+                            <option value="Kamis Legi">Kamis Legi (13)</option>
+                            <option value="Kamis Pahing">Kamis Pahing (17)</option>
+                            <option value="Kamis Pon">Kamis Pon (15)</option>
+                            <option value="Kamis Wage">Kamis Wage (12)</option>
+                            <!-- Hari Pasaran Jumat -->
+                            <option value="Jumat Kliwon">Jumat Kliwon (14)</option>
+                            <option value="Jumat Legi">Jumat Legi (11)</option>
+                            <option value="Jumat Pahing">Jumat Pahing (15)</option>
+                            <option value="Jumat Pon">Jumat Pon (13)</option>
+                            <option value="Jumat Wage">Jumat Wage (10)</option>
+                            <!-- Hari Pasaran Sabtu -->
+                            <option value="Sabtu Kliwon">Sabtu Kliwon (17)</option>
+                            <option value="Sabtu Legi">Sabtu Legi (14)</option>
+                            <option value="Sabtu Pahing">Sabtu Pahing (18)</option>
+                            <option value="Sabtu Pon">Sabtu Pon (16)</option>
+                            <option value="Sabtu Wage">Sabtu Wage (13)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="neptu2" class="block text-sm font-medium text-gray-700 mb-1">Nilai Neptu (Otomatis)</label>
+                        <input type="number" id="neptu2" readonly class="w-full p-2 border border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed shadow-sm">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tombol Hitung -->
+            <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-lg transition duration-300 ease-in-out shadow-lg transform hover:scale-[1.01]">
+                Hitung Kecocokan (Primbon)
+            </button>
+        </form>
+
+        <!-- Bagian Hasil Ramalan -->
+        <div id="resultContainer" class="mt-8 pt-6 border-t border-gray-200 hidden">
+            <h2 class="text-2xl font-bold text-center text-gray-800 mb-4">Hasil Ramalan Jodoh</h2>
+            <div id="neptuTotal" class="text-center text-xl font-semibold mb-3 p-3 bg-gray-100 rounded-lg"></div>
+            <div id="resultText" class="p-6 rounded-xl text-lg font-medium shadow-inner"></div>
+            <div id="explanation" class="mt-4 p-4 border-l-4 border-red-500 bg-red-50 text-sm text-gray-700 rounded-r-lg"></div>
+        </div>
+        
+        <!-- Pesan Modal Kustom (Pengganti alert()) -->
+        <div id="customModal" class="fixed inset-0 bg-gray-900 bg-opacity-75 z-50 hidden flex items-center justify-center p-4">
+            <div class="bg-white p-6 rounded-lg shadow-2xl max-w-sm w-full">
+                <h3 class="text-xl font-bold text-red-600 mb-4">Peringatan!</h3>
+                <p id="modalMessage" class="text-gray-700 mb-6"></p>
+                <button onclick="closeModal()" class="w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-2 rounded-lg">Tutup</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Objek data Primbon: Weton dan Nilai Neptu (Hari + Pasaran)
+        const neptuData = {
+            // Hari Pasaran: Nilai Neptu (Hari + Pasaran)
+            "Minggu Kliwon": 13,
+            "Minggu Legi": 10,
+            "Minggu Pahing": 14,
+            "Minggu Pon": 12,
+            "Minggu Wage": 9,
+            
+            "Senin Kliwon": 12,
+            "Senin Legi": 9,
+            "Senin Pahing": 13,
+            "Senin Pon": 11,
+            "Senin Wage": 8,
+            
+            "Selasa Kliwon": 11,
+            "Selasa Legi": 8,
+            "Selasa Pahing": 12,
+            "Selasa Pon": 10,
+            "Selasa Wage": 7,
+            
+            "Rabu Kliwon": 15,
+            "Rabu Legi": 12,
+            "Rabu Pahing": 16,
+            "Rabu Pon": 14,
+            "Rabu Wage": 11,
+            
+            "Kamis Kliwon": 16,
+            "Kamis Legi": 13,
+            "Kamis Pahing": 17,
+            "Kamis Pon": 15,
+            "Kamis Wage": 12,
+            
+            "Jumat Kliwon": 14,
+            "Jumat Legi": 11,
+            "Jumat Pahing": 15,
+            "Jumat Pon": 13,
+            "Jumat Wage": 10,
+            
+            "Sabtu Kliwon": 17,
+            "Sabtu Legi": 14,
+            "Sabtu Pahing": 18,
+            "Sabtu Pon": 16,
+            "Sabtu Wage": 13
+        };
+
+        // Fungsi untuk menampilkan modal kustom (pengganti alert())
+        function showModal(message) {
+            document.getElementById('modalMessage').textContent = message;
+            document.getElementById('customModal').classList.remove('hidden');
+        }
+
+        // Fungsi untuk menutup modal kustom
+        function closeModal() {
+            document.getElementById('customModal').classList.add('hidden');
+        }
+
+        // Fungsi untuk mendapatkan Neptu berdasarkan pilihan Weton
+        function getNeptu(wetonId, neptuInputId) {
+            const wetonSelect = document.getElementById(wetonId);
+            const neptuInput = document.getElementById(neptuInputId);
+            const selectedWeton = wetonSelect.value;
+            
+            if (selectedWeton && neptuData[selectedWeton]) {
+                const neptuValue = neptuData[selectedWeton];
+                neptuInput.value = neptuValue;
+                return neptuValue;
+            } else {
+                neptuInput.value = '';
+                return 0;
+            }
+        }
+
+        // Event listener untuk Pasangan 1
+        document.getElementById('weton1').addEventListener('change', () => {
+            getNeptu('weton1', 'neptu1');
+        });
+
+        // Event listener untuk Pasangan 2
+        document.getElementById('weton2').addEventListener('change', () => {
+            getNeptu('weton2', 'neptu2');
+        });
+
+        // Fungsi utama perhitungan
+        document.getElementById('wetonForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Dapatkan nilai Neptu
+            const neptu1 = getNeptu('weton1', 'neptu1');
+            const neptu2 = getNeptu('weton2', 'neptu2');
+
+            // Validasi input
+            if (neptu1 === 0 || neptu2 === 0) {
+                showModal("Mohon pilih Hari Pasaran (Weton) untuk kedua pasangan.");
+                return;
+            }
+
+            // Hitung total Neptu
+            const totalNeptu = neptu1 + neptu2;
+            
+            // Tentukan hasil ramalan berdasarkan sisa bagi 7 (Sisa 1-7)
+            const sisaBagi7 = totalNeptu % 7; 
+            
+            // Simpan hasil teks dan penjelasan
+            let result = '';
+            let explanation = '';
+            let bgColorClass = '';
+            let textColorClass = '';
+
+            // Penjelasan Primbon Jodoh (Pembagian 7 - Paling Populer)
+            // Sisa 1: Wasesa Segara
+            // Sisa 2: Tunggak Semi
+            // Sisa 3: Satria Wibawa
+            // Sisa 4: Sumur Sinaba
+            // Sisa 5: Satria Wirang
+            // Sisa 6: Bumi Kapetak
+            // Sisa 0/7: Lebu Katiup Angin (Lebu Katiup Angin sering dihitung sebagai Sisa 7 atau 0)
+
+            switch (sisaBagi7) {
+                case 1: // Wasesa Segara - Samudra yang luas
+                    result = 'WASESA SEGARA - Rezeki dan Budi Luhur';
+                    explanation = 'Ramalan ini menunjukkan pasangan akan memiliki budi pekerti yang luhur dan wibawa. Rezeki akan melimpah dan hidup makmur, seperti luasnya samudra. Kecocokan sangat baik.';
+                    bgColorClass = 'bg-green-100';
+                    textColorClass = 'text-green-800';
+                    break;
+                case 2: // Tunggak Semi - Pohon yang kembali bersemi
+                    result = 'TUNGGAK SEMI - Rezeki Melimpah';
+                    explanation = 'Pasangan ini diramalkan akan selalu mendapatkan rezeki yang berlimpah dan tidak pernah kekurangan. Namun, perlu hati-hati terhadap masalah internal. Kecocokan baik.';
+                    bgColorClass = 'bg-yellow-100';
+                    textColorClass = 'text-yellow-800';
+                    break;
+                case 3: // Satria Wibawa - Ksatria berwibawa
+                    result = 'SATRIA WIBAWA - Kemuliaan dan Kehormatan';
+                    explanation = 'Pasangan ini akan mendapatkan kehormatan dan kemuliaan di lingkungannya. Mereka akan dihormati dan memiliki martabat tinggi. Kecocokan sangat baik.';
+                    bgColorClass = 'bg-blue-100';
+                    textColorClass = 'text-blue-800';
+                    break;
+                case 4: // Sumur Sinaba - Sumur tempat orang menimba ilmu
+                    result = 'SUMUR SINABA - Sumber Kebaikan dan Ilmu';
+                    explanation = 'Pasangan ini diramalkan akan menjadi tempat orang lain meminta nasihat atau bantuan. Mereka akan berhati mulia dan menjadi panutan. Kecocokan baik.';
+                    bgColorClass = 'bg-indigo-100';
+                    textColorClass = 'text-indigo-800';
+                    break;
+                case 5: // Satria Wirang - Ksatria yang mendapat malu
+                    result = 'SATRIA WIRANG - Cobaan dan Kesulitan';
+                    explanation = 'Pasangan ini diramalkan akan sering mengalami kesulitan, malu, atau mendapat fitnah. Perlu banyak bersabar dan tawakal. Kecocokan kurang baik, disarankan melakukan ruwatan.';
+                    bgColorClass = 'bg-red-100';
+                    textColorClass = 'text-red-800';
+                    break;
+                case 6: // Bumi Kapetak - Tanah yang digarap
+                    result = 'BUMI KAPETAK - Kerja Keras dan Ketahanan';
+                    explanation = 'Pasangan ini diramalkan akan menghadapi hidup dengan kerja keras. Mereka tangguh, betah di rumah, namun harus hati-hati karena cenderung memiliki sifat pendiam. Kecocokan sedang.';
+                    bgColorClass = 'bg-orange-100';
+                    textColorClass = 'text-orange-800';
+                    break;
+                case 0: // Lebu Katiup Angin (Sisa 7) - Debu tertiup angin
+                case 7: 
+                    result = 'LEBU KATIUP ANGIN - Kesulitan dan Kehancuran';
+                    explanation = 'Ramalan ini menunjukkan pasangan akan sering mengalami kesulitan ekonomi, kehilangan harta benda, atau harapan yang tidak tercapai, seperti debu yang tertiup angin. Kecocokan sangat tidak baik, disarankan menghindari.';
+                    bgColorClass = 'bg-pink-100';
+                    textColorClass = 'text-pink-800';
+                    break;
+                default:
+                    result = 'Tidak Terdefinisi';
+                    explanation = 'Hasil tidak terdefinisi, mungkin ada kesalahan perhitungan.';
+                    bgColorClass = 'bg-gray-100';
+                    textColorClass = 'text-gray-800';
+            }
+
+            // Tampilkan hasil
+            const resultContainer = document.getElementById('resultContainer');
+            const resultText = document.getElementById('resultText');
+            const explanationDiv = document.getElementById('explanation');
+            const neptuTotalDiv = document.getElementById('neptuTotal');
+
+            neptuTotalDiv.innerHTML = `Total Neptu: <span class="font-bold text-red-700">${totalNeptu}</span> (Sisa Pembagian 7: <span class="font-bold text-red-700">${sisaBagi7 === 0 ? 7 : sisaBagi7}</span>)`;
+            
+            // Atur kelas warna hasil
+            resultText.className = `p-6 rounded-xl text-lg font-bold shadow-inner ${bgColorClass} ${textColorClass}`;
+            resultText.textContent = `Hasil Ramalan: ${result}`;
+
+            explanationDiv.innerHTML = `
+                <p class="font-semibold text-base mb-2">Penjelasan Primbon:</p>
+                <p>${explanation}</p>
+                <p class="mt-3 text-xs italic">*) Perhitungan ini didasarkan pada salah satu metode Primbon Jawa (dibagi 7). Ini hanyalah sebuah ramalan dan bukan penentu takdir.</p>
+            `;
+
+            resultContainer.classList.remove('hidden');
+
+            // Scroll ke hasil
+            resultContainer.scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+
+</body>
+</html>

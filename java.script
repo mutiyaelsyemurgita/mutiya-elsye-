@@ -1,0 +1,176 @@
+// Objek data Primbon: Weton dan Nilai Neptu (Hari + Pasaran)
+const neptuData = {
+    // Hari Pasaran: Nilai Neptu (Hari + Pasaran)
+    "Minggu Kliwon": 13,
+    "Minggu Legi": 10,
+    "Minggu Pahing": 14,
+    "Minggu Pon": 12,
+    "Minggu Wage": 9,
+    
+    "Senin Kliwon": 12,
+    "Senin Legi": 9,
+    "Senin Pahing": 13,
+    "Senin Pon": 11,
+    "Senin Wage": 8,
+    
+    "Selasa Kliwon": 11,
+    "Selasa Legi": 8,
+    "Selasa Pahing": 12,
+    "Selasa Pon": 10,
+    "Selasa Wage": 7,
+    
+    "Rabu Kliwon": 15,
+    "Rabu Legi": 12,
+    "Rabu Pahing": 16,
+    "Rabu Pon": 14,
+    "Rabu Wage": 11,
+    
+    "Kamis Kliwon": 16,
+    "Kamis Legi": 13,
+    "Kamis Pahing": 17,
+    "Kamis Pon": 15,
+    "Kamis Wage": 12,
+    
+    "Jumat Kliwon": 14,
+    "Jumat Legi": 11,
+    "Jumat Pahing": 15,
+    "Jumat Pon": 13,
+    "Jumat Wage": 10,
+    
+    "Sabtu Kliwon": 17,
+    "Sabtu Legi": 14,
+    "Sabtu Pahing": 18,
+    "Sabtu Pon": 16,
+    "Sabtu Wage": 13
+};
+
+// Fungsi untuk menampilkan modal kustom (pengganti alert())
+function showModal(message) {
+    document.getElementById('modalMessage').textContent = message;
+    document.getElementById('customModal').classList.remove('hidden');
+}
+
+// Fungsi untuk menutup modal kustom
+function closeModal() {
+    document.getElementById('customModal').classList.add('hidden');
+}
+
+// Fungsi untuk mendapatkan Neptu berdasarkan pilihan Weton dan menampilkannya di input
+function getNeptu(wetonId, neptuInputId) {
+    const wetonSelect = document.getElementById(wetonId);
+    const neptuInput = document.getElementById(neptuInputId);
+    const selectedWeton = wetonSelect.value;
+    
+    if (selectedWeton && neptuData[selectedWeton]) {
+        const neptuValue = neptuData[selectedWeton];
+        neptuInput.value = neptuValue;
+        return neptuValue;
+    } else {
+        neptuInput.value = '';
+        return 0;
+    }
+}
+
+// Event listener untuk Pasangan 1: Mengisi Neptu otomatis saat weton dipilih
+document.getElementById('weton1').addEventListener('change', () => {
+    getNeptu('weton1', 'neptu1');
+});
+
+// Event listener untuk Pasangan 2: Mengisi Neptu otomatis saat weton dipilih
+document.getElementById('weton2').addEventListener('change', () => {
+    getNeptu('weton2', 'neptu2');
+});
+
+// Fungsi utama perhitungan, dipicu saat form di-submit
+document.getElementById('wetonForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const neptu1 = getNeptu('weton1', 'neptu1');
+    const neptu2 = getNeptu('weton2', 'neptu2');
+
+    if (neptu1 === 0 || neptu2 === 0) {
+        showModal("Mohon pilih Hari Pasaran (Weton) untuk kedua pasangan.");
+        return;
+    }
+
+    const totalNeptu = neptu1 + neptu2;
+    // Pembagian 7: Sisa 1-7 (Metode Wasesa Segara)
+    const sisaBagi7 = totalNeptu % 7; 
+    
+    let result = '';
+    let explanation = '';
+    let bgColorClass = '';
+    let textColorClass = '';
+
+    // Logika Primbon Jodoh (Pembagian 7)
+    switch (sisaBagi7) {
+        case 1: 
+            result = 'WASESA SEGARA - Rezeki dan Budi Luhur';
+            explanation = 'Ramalan ini menunjukkan pasangan akan memiliki budi pekerti yang luhur dan wibawa. Rezeki akan melimpah dan hidup makmur, seperti luasnya samudra. Kecocokan sangat baik.';
+            bgColorClass = 'bg-green-100';
+            textColorClass = 'text-green-800';
+            break;
+        case 2: 
+            result = 'TUNGGAK SEMI - Rezeki Melimpah';
+            explanation = 'Pasangan ini diramalkan akan selalu mendapatkan rezeki yang berlimpah dan tidak pernah kekurangan. Namun, perlu hati-hati terhadap masalah internal. Kecocokan baik.';
+            bgColorClass = 'bg-yellow-100';
+            textColorClass = 'text-yellow-800';
+            break;
+        case 3: 
+            result = 'SATRIA WIBAWA - Kemuliaan dan Kehormatan';
+            explanation = 'Pasangan ini akan mendapatkan kehormatan dan kemuliaan di lingkungannya. Mereka akan dihormati dan memiliki martabat tinggi. Kecocokan sangat baik.';
+            bgColorClass = 'bg-blue-100';
+            textColorClass = 'text-blue-800';
+            break;
+        case 4: 
+            result = 'SUMUR SINABA - Sumber Kebaikan dan Ilmu';
+            explanation = 'Pasangan ini diramalkan akan menjadi tempat orang lain meminta nasihat atau bantuan. Mereka akan berhati mulia dan menjadi panutan. Kecocokan baik.';
+            bgColorClass = 'bg-indigo-100';
+            textColorClass = 'text-indigo-800';
+            break;
+        case 5: 
+            result = 'SATRIA WIRANG - Cobaan dan Kesulitan';
+            explanation = 'Pasangan ini diramalkan akan sering mengalami kesulitan, malu, atau mendapat fitnah. Perlu banyak bersabar dan tawakal. Kecocokan kurang baik, disarankan melakukan ruwatan.';
+            bgColorClass = 'bg-red-100';
+            textColorClass = 'text-red-800';
+            break;
+        case 6: 
+            result = 'BUMI KAPETAK - Kerja Keras dan Ketahanan';
+            explanation = 'Pasangan ini diramalkan akan menghadapi hidup dengan kerja keras. Mereka tangguh, betah di rumah, namun harus hati-hati karena cenderung memiliki sifat pendiam. Kecocokan sedang.';
+            bgColorClass = 'bg-orange-100';
+            textColorClass = 'text-orange-800';
+            break;
+        case 0: // Sisa 7
+        case 7: 
+            result = 'LEBU KATIUP ANGIN - Kesulitan dan Kehancuran';
+            explanation = 'Ramalan ini menunjukkan pasangan akan sering mengalami kesulitan ekonomi, kehilangan harta benda, atau harapan yang tidak tercapai, seperti debu yang tertiup angin. Kecocokan sangat tidak baik, disarankan menghindari.';
+            bgColorClass = 'bg-pink-100';
+            textColorClass = 'text-pink-800';
+            break;
+        default:
+            result = 'Tidak Terdefinisi';
+            explanation = 'Hasil tidak terdefinisi, mungkin ada kesalahan perhitungan.';
+            bgColorClass = 'bg-gray-100';
+            textColorClass = 'text-gray-800';
+    }
+
+    // Tampilkan hasil di UI
+    const resultContainer = document.getElementById('resultContainer');
+    const resultText = document.getElementById('resultText');
+    const explanationDiv = document.getElementById('explanation');
+    const neptuTotalDiv = document.getElementById('neptuTotal');
+
+    neptuTotalDiv.innerHTML = `Total Neptu: <span class="font-bold text-red-700">${totalNeptu}</span> (Sisa Pembagian 7: <span class="font-bold text-red-700">${sisaBagi7 === 0 ? 7 : sisaBagi7}</span>)`;
+    
+    resultText.className = `p-6 rounded-xl text-lg font-bold shadow-inner ${bgColorClass} ${textColorClass}`;
+    resultText.textContent = `Hasil Ramalan: ${result}`;
+
+    explanationDiv.innerHTML = `
+        <p class="font-semibold text-base mb-2">Penjelasan Primbon:</p>
+        <p>${explanation}</p>
+        <p class="mt-3 text-xs italic">*) Perhitungan ini didasarkan pada salah satu metode Primbon Jawa (dibagi 7). Ini hanyalah sebuah ramalan dan bukan penentu takdir.</p>
+    `;
+
+    resultContainer.classList.remove('hidden');
+    resultContainer.scrollIntoView({ behavior: 'smooth' });
+});
